@@ -1,0 +1,24 @@
+spring:
+  liquibase:
+    enabled: false
+  application:
+    name: biz-cases
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jcb?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      validation-query: SELECT 1
+server:
+  port: 0
+eureka:
+  client:
+    service-url:
+      defaultZone: http://erueka-slave.superbio.cn:8101/eureka/
+    enabled: true
+  instance:
+    prefer-ip-address: true
+swagger:
+  enabled: true

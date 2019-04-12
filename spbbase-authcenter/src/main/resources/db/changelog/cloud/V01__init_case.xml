@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="V01__init_case" author="george">
+        <comment>案例表</comment>
+        <createTable tableName="jcb_case">
+            <column name="id" type="BIGINT(0) UNSIGNED" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="status" type="tinyint(0)" remarks="状态"  defaultValue="0">
+                <constraints nullable="true"/>
+            </column>
+            <column name="case_category_id" type="BIGINT(0) UNSIGNED" remarks="专业类别">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entrust_date" type="date(0)" remarks="委托时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="accept_date" type="date(0)" remarks="受理时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="deadline" type="smallint(0)" remarks="落案时间">
+                <constraints nullable="true"/>
+            </column>
+            <column name="case_sign" type="varchar(50)" remarks="案件标志" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="case_no_auto_generate" type="bit(0)" remarks="案件编号是否自动生成">
+                <constraints nullable="true"/>
+            </column>
+            <column name="case_no" type="varchar(50)" remarks="案件编号" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="identified_before" type="bit(0)" remarks="既往鉴定史">
+                <constraints nullable="true"/>
+            </column>
+            <column name="urgent" type="bit(0)" remarks="是否加急">
+                <constraints nullable="true"/>
+            </column>
+            <column name="need_evade" type="bit(0)" remarks="是否回避">
+                <constraints nullable="true"/>
+            </column>
+            <column name="materials_completed" type="bit(0)" remarks="材料齐全">
+                <constraints nullable="true"/>
+            </column>
+            <column name="case_summary" type="varchar(1000)" remarks="检案摘要" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remark" type="varchar(500)" remarks="备注" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_type" type="tinyint(0)" remarks="委托方类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="client_dept" type="varchar(50)" remarks="委托单位" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_name" type="varchar(50)" remarks="委托人姓名" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_phone" type="varchar(20)" remarks="委托人联系电话" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_address" type="varchar(500)" remarks="委托人地址" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="report_provided_type" type="tinyint(0)" remarks="报告发放方式">
+                <constraints nullable="true"/>
+            </column>
+            <column name="cert_type_for_took" type="tinyint(0)" remarks="备注">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="cert_identify" type="varchar(50)" remarks="凭证号（如身份证）" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_name" type="varchar(50)" remarks="收件人" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_phone" type="varchar(20)" remarks="收件人联系电话" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipient_address" type="varchar(500)" remarks="收件人地址" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_price" type="int(0)" remarks="备注">
+                <constraints nullable="true"/>
+            </column>
+            <column name="report_path" type="varchar(100)" remarks="报告路径" defaultValue="">
+                <constraints nullable="false"/>
+            </column>
+            <column name="download_count" type="smallint(0)" remarks="下载次数" defaultValue="0">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <comment>鉴定人信息</comment>
+        <createTable tableName="jcb_identified_person">
+            <column name="id" type="BIGINT(20) UNSIGNED" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="case_id" type="BIGINT(20) UNSIGNED" remarks="案例编号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)" remarks="姓名">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sex" type="tinyint(0)" remarks="性别">
+                <constraints nullable="true"/>
+            </column>
+            <column name="age" type="tinyint(0)" remarks="年龄">
+                <constraints nullable="true"/>
+            </column>
+            <column name="address" type="varchar(500)" remarks="家庭住址">
+                <constraints nullable="true"/>
+            </column>
+            <column name="id_number" type="varchar(50)" remarks="身份证号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_name" type="varchar(50)" remarks="联系人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_phone" type="varchar(500)" remarks="联系电话">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nation" type="varchar(20)" remarks="民族">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remark" type="varchar(500)" remarks="备注">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <comment>鉴定车辆信息</comment>
+        <createTable tableName="jcb_identified_car">
+            <column name="id" type="BIGINT(20) UNSIGNED" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="case_id" type="BIGINT(20) UNSIGNED" remarks="案例编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="plate_name" type="varchar(20)" remarks="车牌号">
+                <constraints nullable="false"/>
+            </column>
+            <column name="brand" type="varchar(50)" remarks="车辆品牌">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type" type="tinyint(0)" remarks="车辆类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="vin" type="varchar(50)" remarks="车架号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="engine_number" type="varchar(50)" remarks="发动机号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="parking_place" type="varchar(500)" remarks="停放地点">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_name" type="varchar(50)" remarks="联系人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_phone" type="varchar(20)" remarks="联系电话">
+                <constraints nullable="true"/>
+            </column>
+            <column name="remark" type="varchar(500)" remarks="备注">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <comment>鉴定物信息</comment>
+        <createTable tableName="jcb_identified_object">
+            <column name="id" type="BIGINT(20) UNSIGNED" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="case_id" type="BIGINT(20) UNSIGNED" remarks="案例编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="name" type="varchar(50)" remarks="名称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_name" type="varchar(50)" remarks="联系人">
+                <constraints nullable="true"/>
+            </column>
+            <column name="contact_phone" type="varchar(20)" remarks="联系电话">
+                <constraints nullable="true"/>
+            </column>
+            <column name="remark" type="varchar(500)" remarks="备注">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <comment>鉴定材料</comment>
+        <createTable tableName="jcb_case_material">
+            <column name="id" type="BIGINT(20) UNSIGNED" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="case_id" type="BIGINT(20) UNSIGNED" remarks="案例编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="name" type="varchar(50)" remarks="材料名称">
+                <constraints nullable="true"/>
+            </column>
+            <column name="type" type="tinyint(0)" remarks="类型">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amount" type="tinyint(0)" remarks="数量">
+                <constraints nullable="true"/>
+            </column>
+            <column name="specification" type="tinyint(0)" remarks="规格">
+                <constraints nullable="true"/>
+            </column>
+            <column name="feature" type="tinyint(0)" remarks="材料性质">
+                <constraints nullable="true"/>
+            </column>
+            <column name="remark" type="varchar(500)" remarks="备注">
+                <constraints nullable="true"/>
+            </column>
+            <column name="attachment_id" type="bigint(0)" remarks="上传的文件">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <comment>鉴定事项</comment>
+        <createTable tableName="jcb_identification_matter">
+            <column name="id" type="BIGINT(20) UNSIGNED" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="case_id" type="BIGINT(20) UNSIGNED" remarks="案例编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="entrusted_matter_id" type="BIGINT(20)" remarks="委托事项">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amount" type="tinyint(0)" remarks="数量">
+                <constraints nullable="true"/>
+            </column>
+            <column name="remark" type="varchar(500)" remarks="备注">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <comment>案例收费</comment>
+        <createTable tableName="jcb_case_charging">
+            <column name="id" type="BIGINT(20) UNSIGNED" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="case_id" type="BIGINT(20) UNSIGNED" remarks="案例编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="charging_item_id" type="BIGINT(20) UNSIGNED" remarks="案件类别编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="amount" type="tinyint(0)" remarks="数量">
+                <constraints nullable="true"/>
+            </column>
+            <column name="discount" type="int(0)" remarks="优惠金额（单位分）">
+                <constraints nullable="true"/>
+            </column>
+            <column name="total_price" type="int(0)" remarks="应收小计（单位分）">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <comment>样本信息</comment>
+        <createTable tableName="jcb_case_sample">
+            <column name="id" type="BIGINT(20) UNSIGNED AUTO_INCREMENT" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+            <column name="case_id" type="BIGINT(20)" remarks="案例编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sample_id" type="BIGINT(20)" remarks="样本编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="appellation" type="tinyint(0)" remarks="称谓">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+        <comment>样本</comment>
+        <createTable tableName="jcb_sample">
+            <column name="id" type="BIGINT(20) UNSIGNED AUTO_INCREMENT" remarks="主键UUID">
+                <constraints primaryKey="true" nullable="true"/>
+            </column>
+            <column name="sample_code" type="varchar(50)" remarks="样本编号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="name" type="varchar(50)" remarks="姓名">
+                <constraints nullable="true"/>
+            </column>
+            <column name="id_number" type="varchar(50)" remarks="身份证号">
+                <constraints nullable="true"/>
+            </column>
+            <column name="birthday" type="date(0)" remarks="出生日期">
+                <constraints nullable="true"/>
+            </column>
+            <column name="age" type="tinyint(0)" remarks="年龄">
+                <constraints nullable="true"/>
+            </column>
+            <column name="address" type="varchar(500)" remarks="家庭地址">
+                <constraints nullable="true"/>
+            </column>
+            <column name="special" type="bit(0)" remarks="是否特殊样本">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sample_type" type="tinyint(0)" remarks="样本类型">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

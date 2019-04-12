@@ -1,0 +1,53 @@
+server:
+  port: 80
+spring:
+  application:
+    name: spbbase-gateway
+  cloud:
+    gateway:
+      #      discovery:
+      #        locator:
+      #          enabled: true
+      #          lower-case-service-id: true
+      routes:
+      - id: web_route
+        order: 100
+        uri: http://localhost:8000
+        predicates:
+        - Path= /**
+      - id: biz-cases-web
+        uri: lb://biz-cases-web
+        predicates:
+        - Path=/biz-cases-web/**
+        filters:
+        - StripPrefix=1
+      - id: biz-finance-web
+        uri: lb://biz-finance-web
+        predicates:
+        - Path=/biz-finance-web/**
+        filters:
+        - StripPrefix=1
+      - id: spbbase-attachment-web
+        uri: lb://spbbase-attachment-web
+        predicates:
+        - Path=/biz-attachment-web/**
+        filters:
+        - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://erueka-master.superbio.cn:8100/eureka/,http://erueka-slave.superbio.cn:8101/eureka/
+  instance:
+    prefer-ip-address: true
+logging:
+  level:
+    org.springframework.cloud.gateway: trace
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"

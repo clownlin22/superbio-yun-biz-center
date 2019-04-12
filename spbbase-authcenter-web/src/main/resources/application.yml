@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: biz-cases-web
+eureka:
+  client:
+    service-url:
+      defaultZone: http://erueka-master.superbio.cn:8100/eureka/,http://erueka-slave.superbio.cn:8101/eureka/
+    enabled: true
+  instance:
+    prefer-ip-address: true
+swagger:
+  enabled: true
+  base-package: cn.superbio.judicial.cloud.biz.cases.controller
